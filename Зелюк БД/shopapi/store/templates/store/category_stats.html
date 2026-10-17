@@ -1,0 +1,24 @@
+{% extends "store/base.html" %}
+{% block content %}
+<h1>Статистика по категориям</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Категория</th>
+            <th>Кол-во товаров</th>
+            <th>Продано единиц</th>
+            <th>Выручка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in stats %}
+        <tr {% if s.category == top_category %}class="table-warning fw-bold"{% endif %}>
+            <td>{{ s.category }}</td>
+            <td>{{ s.products_count }}</td>
+            <td>{{ s.sold_units }}</td>
+            <td>{{ s.revenue }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "store/base.html" %}
+{% block content %}
+<h1>Заказы клиента #{{ customer_id }}</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID Заказа</th>
+            <th>Дата</th>
+            <th>Сумма</th>
+            <th>Средний чек</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for o in orders %}
+        <tr>
+            <td>{{ o.id }}</td>
+            <td>{{ o.created_at }}</td>
+            <td>{{ o.total }}</td>
+            <td>{{ o.avg_check }}</td>
+            <td>
+                <a href="{% url 'order_add_item' o.id %}?customer_id={{ customer_id }}" class="btn btn-sm btn-success">Добавить позицию</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">У клиента пока нет заказов.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'order_create' %}" class="btn btn-primary mt-3">Создать новый заказ</a>
+{% endblock %}

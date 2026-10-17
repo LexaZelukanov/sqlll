@@ -1,0 +1,17 @@
+{% extends "store/base.html" %}
+{% block content %}
+<h1>Создать заказ</h1>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Клиент</label>
+        <select class="form-select" name="customer_id" required>
+            <option value="">-- Выберите клиента --</option>
+            {% for c in customers %}
+                <option value="{{ c.id }}">{{ c.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Создать</button>
+</form>
+{% endblock %}

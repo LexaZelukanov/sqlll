@@ -1,0 +1,22 @@
+{% extends "store/base.html" %}
+{% block content %}
+<h1>Добавить позицию в заказ #{{ order_id }}</h1>
+<form method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="customer_id" value="{{ request.GET.customer_id|default:1 }}">
+    <div class="mb-3">
+        <label class="form-label">Товар</label>
+        <select class="form-select" name="product_id" required>
+            {% for p in products %}
+                <option value="{{ p.id }}">{{ p.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Количество</label>
+        <input type="number" class="form-control" name="quantity" value="1" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <a href="{% url 'customer_orders' 1 %}" class="btn btn-secondary">Назад к заказам</a>
+</form>
+{% endblock %}

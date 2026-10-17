@@ -1,0 +1,26 @@
+{% extends "store/base.html" %}
+{% block content %}
+<h1>Расчет скидки</h1>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">ID Клиента</label>
+        <input type="number" class="form-control" name="customer_id" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Сумма покупки</label>
+        <input type="number" step="0.01" class="form-control" name="amount" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Рассчитать</button>
+</form>
+
+{% if result %}
+<hr>
+<div class="alert alert-info">
+    <p>Клиент #{{ result.customer_id }}</p>
+    <p>Сумма: {{ result.amount }} руб.</p>
+    <p>Скидка: <strong>{{ result.percent }}%</strong></p>
+    <p>Итого к оплате: <strong>{{ result.total }} руб.</strong></p>
+</div>
+{% endif %}
+{% endblock %}
